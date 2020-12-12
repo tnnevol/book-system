@@ -27,6 +27,11 @@ _next_
 * 2020/11/30：新增服务层404页面
 * 2020/12/03：新增客户端ui框架cube-ui，新增px2rem适配插件
 * 2020/12/11：新建表 重新爬取数据
+* 2020/12/12：中间件发布成npm包
+[webpack-dev-middleware-for-koa](https://github.com/tnnevol/webpack-dev-middleware-for-koa2)
+[webpack-hot-middleware-for-koa2](https://github.com/tnnevol/webpack-hot-middleware-for-koa2)
+[http-proxy-middleware-for-koa2](https://github.com/tnnevol/http-proxy-middleware-for-koa2)
+
 
 ## 待完成
 * 接口开发
