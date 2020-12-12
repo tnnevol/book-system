@@ -1,12 +1,12 @@
 /**
- * @apiDefine userInfo
- * @apiSuccess {Number} id
- * @apiSuccess {String} name 用户名
- * db.users.insert({"sequenceName" : "UserId", "sequenceValue" : -1})
+ * 书籍信息
+ * 用于创建Article表
+ * @type {*|Mongoose}
+ * db.articles.insert({"sequenceName" : "ArticleId", "sequenceValue" : -1})
  */
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const userSchema = new Schema(
+const articleSchema = new Schema(
   {
     sequenceName: {
       type: String,
@@ -20,39 +20,41 @@ const userSchema = new Schema(
       type: Number,
       required: true,
     },
+    url: {
+      type: String,
+      default: null,
+      required: true,
+    },
     name: {
       type: String,
+      default: null,
       required: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
-    // 个人简介
-    introduce: {
+    cover: {
       type: String,
       default: null,
     },
-    email: {
-      type: String,
-      default: null,
-    },
-    headPic: {
-      type: String,
-      default:
-        "https://img2.woyaogexing.com/2020/05/11/a3db755ca5bf4cc7a8857cf563450871!400x400.jpeg",
-    },
-    nickName: {
-      type: String,
-      default: null,
-    },
-    loginStatus: {
+    typeId: {
       type: Number,
-      default: 0,
+      default: null,
+      required: true,
     },
-    accountToken: {
+    authorId: {
+      type: Number,
+      default: null,
+      required: true,
+    },
+    desc: {
       type: String,
       default: null,
+    },
+    status: {
+      type: String,
+      default: null,
+    },
+    updateTime: {
+      type: Number,
+      default: new Date().getTime(),
     },
     createTime: {
       type: Number,
@@ -62,4 +64,4 @@ const userSchema = new Schema(
   { id: false }
 );
 
-module.exports = mongoose.model("users", userSchema);
+module.exports = mongoose.model("articles", articleSchema);

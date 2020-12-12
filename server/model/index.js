@@ -7,7 +7,7 @@
  */
 const mongoose = require("mongoose");
 const db = mongoose.connection;
-const uri = "mongodb://127.0.0.1:27017/books";
+const uri = "mongodb://127.0.0.1:27017/fugueReader";
 // DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `use
 mongoose.set("useFindAndModify", false);
 
@@ -15,7 +15,7 @@ module.exports = async () => {
   await new Promise((resolve, reject) => {
     mongoose.connect(uri, {
       pass: "123456",
-      user: "test",
+      user: "fugueReader",
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
