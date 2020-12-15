@@ -83,4 +83,13 @@ function onListening() {
   var addr = server.address();
   var bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
   debug("Listening on " + bind);
+  startSucess();
+}
+
+function startSucess() {
+  if (process.env.API_TEST === "testing") {
+    console.log(
+      `Your application is running here: http://${config.dev.host}:${config.dev.port}`
+    );
+  }
 }
