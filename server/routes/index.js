@@ -15,6 +15,7 @@ const routes = {
 
   // api
   users: require("./users"),
+  books: require("./books"),
 };
 
 function registerRouter(app) {

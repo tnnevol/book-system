@@ -1,4 +1,16 @@
 /**
+ * @apiDefine articleInfo
+ * @apiSuccess {Number} id bookId
+ * @apiSuccess {String} name 书名
+ * @apiSuccess {String} cover 封面
+ * @apiSuccess {Number} typeId 书籍类型
+ * @apiSuccess {Number} authorId 作者id
+ * @apiSuccess {String} desc 书籍描述
+ * @apiSuccess {String} status 书籍连载状态
+ * @apiSuccess {Number} createTime
+ * @apiSuccess {Number} updateTime
+ */
+/**
  * 书籍信息
  * 用于创建Article表
  * @type {*|Mongoose}

@@ -1,5 +1,6 @@
 const setAuthor = require("./setAuthor");
 const setArticle = require("./setArticle");
+const setArticleType = require("./setArticleType");
 const setArticleDetaile = require("./setArticleDetaile");
 const Author = require("../../model/Author");
 const Article = require("../../model/Article");
@@ -60,7 +61,16 @@ async function insertArticle() {
     }
   }
 }
-
+async function insertArticleType() {
+  await mongoDB();
+  const mappingType = ["玄幻", "修真", "都市", "穿越", "网游", "科幻"];
+  for (let index = 0; index < mappingType.length; index++) {
+    const element = mappingType[index];
+    await setArticleType({
+      name: element,
+    });
+  }
+}
 async function insertArticleDetail() {
   await mongoDB();
   const filePathList = glob.sync(
@@ -94,4 +104,4 @@ async function insertArticleDetail() {
     }
   }
 }
-insertArticleDetail();
+insertArticleType();

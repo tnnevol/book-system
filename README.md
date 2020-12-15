@@ -31,6 +31,7 @@ _next_
 [webpack-dev-middleware-for-koa](https://github.com/tnnevol/webpack-dev-middleware-for-koa2)
 [webpack-hot-middleware-for-koa2](https://github.com/tnnevol/webpack-hot-middleware-for-koa2)
 [http-proxy-middleware-for-koa2](https://github.com/tnnevol/http-proxy-middleware-for-koa2)
+* 2020/12/15：新增books层服务和接口
 
 
 ## 待完成
