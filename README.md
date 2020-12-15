@@ -1,4 +1,4 @@
-# 神游阅读器fugueReader
+# 神游阅读器（fugueReader）
 
 ## 背景
 没有背景就是为了玩
