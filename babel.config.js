@@ -5,7 +5,7 @@ const presets = [
       useBuiltIns: "usage", // 垫片使用
       corejs: 3,
       // esmodules: true,
-      // modules: "auto",
+      // modules: false,
     },
   ],
   "@vue/babel-preset-jsx",
