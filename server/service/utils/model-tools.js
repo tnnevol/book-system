@@ -1,41 +1,5 @@
 module.exports = {
   /**
-   * 分页工具
-   * @param model 表名
-   * @param type
-   * @param count
-   * @param page
-   * @returns {Promise<*>}
-   */
-  async getPage({ model, type, count, page }) {
-    return model
-      .find({ type }, { chapterList: 0, __v: 0, _id: 0 })
-      .sort({ id: 1 })
-      .skip(page * count)
-      .limit(count)
-      .exec();
-  },
-  /**
-   * 分页
-   * @param query 查询条件
-   * @param model
-   * @param type
-   * @param count
-   * @param page
-   * @param ignore
-   * @param sort 排序
-   * @returns {Promise<*>}
-   */
-  async paginationTools(query, { model, count, page }, ignore, sort) {
-    return model
-      .find(query, ignore)
-      .sort(sort)
-      .skip(page * count)
-      .limit(count)
-      .exec();
-  },
-
-  /**
    * 集合总数
    * @param model
    * @param type
@@ -50,34 +14,72 @@ module.exports = {
   },
 
   /**
+   * 模型分页
+   * @param {*} Model
+   * @param {Object} query
+   * @param {Object} ignore
+   * @param {Object} sort
+   * @param {Number} page
+   * @param {Number} count
+   * @returns {Promise}
+   */
+  modelPagination(Model, query, ignore, sort, page, count) {
+    page = Number(page);
+    count = Number(count);
+    return Model.find(query, ignore)
+      .sort(sort)
+      .skip(page * count)
+      .limit(count)
+      .exec();
+  },
+  /**
    * 实现自增
    * @param Model
    * @param sequenceName
-   * @returns {Number}
+   * @returns {Promise}
    */
-  async getNextSequenceValue(Model, sequenceName) {
+  getNextSequenceValue(Model, sequenceName) {
     const query = {
       sequenceName,
     };
     const update = { $inc: { sequenceValue: 1 } };
 
-    const sequenceDocument = await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       Model.findOneAndUpdate(query, update, { new: true }, (err, res) => {
-        if (err) return reject(err);
-        return resolve(res);
+        if (err) {
+          reject(err);
+        } else {
+          return resolve(res.sequenceValue);
+        }
       });
     });
-    return sequenceDocument.sequenceValue;
   },
   /**
    *
    * @param {Model} Model 表
    * @param {Object} quert 查询条件
    * @param {Object} filter 过滤条件
+   * @returns {Promise}
    */
   findOne(Model, quert, filter) {
     return new Promise((resolve, reject) => {
       Model.findOne(quert, filter).exec((err, result) => {
+        if (err) return reject(err);
+        return resolve(result);
+      });
+    });
+  },
+  /**
+   *
+   * @param {Model} Model 表
+   * @param {Object} quert 查询条件
+   * @param {Object} projection 字段过滤
+   * @param {Object} options 查询规则
+   * @returns {Promise}
+   */
+  find(Model, quert, projection, options) {
+    return new Promise((resolve, reject) => {
+      Model.find(quert, projection, options).exec((err, result) => {
         if (err) return reject(err);
         return resolve(result);
       });
@@ -89,6 +91,7 @@ module.exports = {
    * @param Model
    * @param query
    * @param update
+   * @returns {Promise}
    */
   updateOne(Model, query, update) {
     return new Promise((resolve, reject) => {
@@ -106,6 +109,7 @@ module.exports = {
    *
    * @param {Model} Model 表
    * @param {Object} schema 表模型的字段
+   * @returns {Promise}
    */
   createModelOne(Model, schema) {
     const model = new Model(schema);

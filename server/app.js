@@ -5,7 +5,7 @@ const json = require("koa-json");
 const onerror = require("koa-onerror");
 const bodyparser = require("koa-bodyparser");
 const logger = require("koa-logger");
-const proxy = require("./middleware/koa-http-proxy-middleware");
+const proxy = require("http-proxy-middleware-for-koa2");
 const cors = require("koa2-cors");
 const koaStatic = require("koa-static");
 // 连接数据库
