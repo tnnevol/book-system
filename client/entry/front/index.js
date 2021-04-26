@@ -4,6 +4,7 @@ import router from "@/router/front";
 import store from "@/store/front";
 import "@/utils/front/cube-ui";
 import "amfe-flexible";
+import "animate.css";
 
 Vue.config.productionTip = false;
 

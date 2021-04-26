@@ -1,0 +1,15 @@
+.cube-scroll-nav-bar {
+  background-color: @NavBarBg;
+  /deep/.cube-scroll-nav-bar-items {
+    font-size: 14px;
+    color: @NavBarFontColor;
+    .cube-scroll-nav-bar-item {
+      padding: 12px;
+      &.cube-scroll-nav-bar-item_active {
+        font-size: 14px;
+        color: @NavBarFontActiveColor;
+        border-bottom: 2px solid @NavBarActiveLine;
+      }
+    }
+  }
+}

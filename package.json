@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "animate.css": "^4.1.1",
     "arale-qrcode": "^3.0.5",
     "axios": "^0.20.0",
     "core-js": "3.6.5",

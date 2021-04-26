@@ -254,7 +254,7 @@ module.exports = {
             loader: "style-resources-loader",
             options: {
               patterns: [
-                resolve("./client/assets/front/theme/default/color.less"),
+                resolve("./client/assets/front/theme/default-ui.less"),
               ],
             },
           },

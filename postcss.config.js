@@ -4,7 +4,7 @@ module.exports = ({ file }) => {
       require("postcss-import"),
       require("autoprefixer"),
       require("postcss-plugin-px2rem")({
-        rootValue: /(front)/gi.test(file) ? 75 : 192,
+        rootValue: /(front)/gi.test(file) ? 37.5 : 192,
         exclude: /(node_modules|admin)/, // 去除管理后台
         // 白名单 允许css属性转换成rem
         propWhiteList: [],

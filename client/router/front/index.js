@@ -1,20 +1,20 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "@/views/front/Home.vue";
+import Router from "vue-router";
+import constantRoutes from "./constant.routes";
 
-Vue.use(VueRouter);
-const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
-];
+Vue.use(Router);
 
-const router = new VueRouter({
-  mode: "history",
-  base: "/vue-app/",
-  routes,
-});
+const createRouter = () =>
+  new Router({
+    mode: "history",
+    base: "/vue-app/",
+    routes: constantRoutes,
+  });
 
+const router = createRouter();
+
+export function resetRouter() {
+  const newRouter = createRouter();
+  router.matcher = newRouter.matcher; // reset router
+}
 export default router;
