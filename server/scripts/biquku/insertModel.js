@@ -11,9 +11,7 @@ const { findOne } = require("../../service/utils/model-tools");
 
 async function insertAuthor() {
   await mongoDB();
-  const filePathList = glob.sync(
-    "/home/tnnevol/Documents/jsonFile/books/*.json"
-  );
+  const filePathList = glob.sync("/home/vae/Documents/jsonFile/books/*.json");
   for (let i = 0; i < filePathList.length; i++) {
     const pathStr = filePathList[i];
     const jsonList = fs.readJsonSync(pathStr);

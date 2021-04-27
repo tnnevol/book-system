@@ -1,14 +1,12 @@
 module.exports = {
   /**
    * 集合总数
-   * @param model
-   * @param type
+   * @param Model {Model}
+   * @param query {Object}
    * @returns {Promise}
    */
-  async modelCount(model, type, field) {
-    const term = type ? { [field]: type } : null;
-    return model
-      .find(term)
+  async modelCount(Model, query) {
+    return Model.find(query || null)
       .countDocuments() // count 即将废弃尽量不要使用
       .exec();
   },
@@ -26,7 +24,7 @@ module.exports = {
   modelPagination(Model, query, ignore, sort, page, count) {
     page = Number(page);
     count = Number(count);
-    return Model.find(query, ignore)
+    return Model.find(query, { sequenceName: 0, sequenceValue: 0, ...ignore })
       .sort(sort)
       .skip(page * count)
       .limit(count)
@@ -55,31 +53,35 @@ module.exports = {
     });
   },
   /**
-   *
+   * 按条件查询一条数据
    * @param {Model} Model 表
-   * @param {Object} quert 查询条件
-   * @param {Object} filter 过滤条件
+   * @param {Object} query 查询条件
+   * @param {Object} ignore 过滤条件
    * @returns {Promise}
    */
-  findOne(Model, quert, filter) {
+  findOne(Model, query, ignore) {
     return new Promise((resolve, reject) => {
-      Model.findOne(quert, filter).exec((err, result) => {
+      Model.findOne(query, {
+        sequenceName: 0,
+        sequenceValue: 0,
+        ...ignore,
+      }).exec((err, result) => {
         if (err) return reject(err);
         return resolve(result);
       });
     });
   },
   /**
-   *
+   * 按条件查询返回数组
    * @param {Model} Model 表
-   * @param {Object} quert 查询条件
+   * @param {Object} query 查询条件
    * @param {Object} projection 字段过滤
    * @param {Object} options 查询规则
    * @returns {Promise}
    */
-  find(Model, quert, projection, options) {
+  find(Model, query, projection, options) {
     return new Promise((resolve, reject) => {
-      Model.find(quert, projection, options).exec((err, result) => {
+      Model.find(query, projection, options).exec((err, result) => {
         if (err) return reject(err);
         return resolve(result);
       });
@@ -104,9 +106,8 @@ module.exports = {
       });
     });
   },
-
   /**
-   *
+   * 创建一条数据
    * @param {Model} Model 表
    * @param {Object} schema 表模型的字段
    * @returns {Promise}

@@ -3,8 +3,8 @@ const User = require("../model/User");
 const JwtUtil = require("../utils/Jwt");
 const { updateOne } = require("../service/utils/model-tools");
 const { encryptCbc } = require("../utils/cryptoPackage");
-const ServeceUsers = require("../service/Users");
-const serviceUsers = new ServeceUsers();
+const ServiceBooks = require("../service/Users");
+const serviceUsers = new ServiceBooks();
 
 /**
  * @apiDefine ErrorResponse
@@ -19,6 +19,9 @@ const serviceUsers = new ServeceUsers();
  */
 
 class UserController extends Controller {
+  constructor() {
+    super();
+  }
   /**
    * @api {post} /api/users/login login.
    * @apiSampleRequest /api/users/login
@@ -38,7 +41,7 @@ class UserController extends Controller {
    *
    * @apiUse ErrorResponse
    */
-  async login(ctx) {
+  async loginController(ctx) {
     const resInfo = await accountLogin(ctx.request.body);
     ctx.body = {
       type: resInfo.type,
@@ -64,9 +67,9 @@ class UserController extends Controller {
    *
    * @apiUse ErrorResponse
    */
-  async info(ctx) {
+  async infoController(ctx) {
     const token = ctx.headers.accounttoken;
-    const user = await serviceUsers.getUserInfoByToken(token);
+    const user = await serviceUsers.getUserInfoByTokenServer(token);
     if (user) {
       ctx.body = {
         type: "success",
@@ -91,7 +94,7 @@ async function accountLogin({ username, password } = {}) {
     };
   }
   const jwt = new JwtUtil();
-  const userInfo = await serviceUsers.getUserInfoByUsername(username);
+  const userInfo = await serviceUsers.getUserInfoByUsernameServer(username);
 
   // 查询用户是否存在
   // console.log(userInfo);
@@ -131,7 +134,7 @@ async function accountLogin({ username, password } = {}) {
     }
   } else {
     // 用户不存在直接创建用户 分配token
-    const userInfo = await serviceUsers.createUser(
+    const userInfo = await serviceUsers.createUserServer(
       username,
       encryptCbc(password)
     );

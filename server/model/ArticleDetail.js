@@ -1,4 +1,12 @@
 /**
+ * @apiDefine articleDetailInfo
+ * @apiSuccess {Number} id articleDetailId
+ * @apiSuccess {String} name 章节名称
+ * @apiSuccess {Number} articleId 作者id
+ * @apiSuccess {String} url 章节地址
+ * @apiSuccess {Number} createTime
+ */
+/**
  * 文章
  * 用于创建ArticleDetail表
  * @type {*|Mongoose}

@@ -11,7 +11,7 @@ class Users {
    * @param {String} username 用户名
    * @param {String} password 加密后的密码
    */
-  async createUser(username, password) {
+  async createUserServer(username, password) {
     return await createModelOne(User, {
       id: await getNextSequenceValue(User, "UserId"),
       name: username,
@@ -23,7 +23,7 @@ class Users {
    * 通过用户名查询用户信息
    * @param {String} username 用户名
    */
-  async getUserInfoByUsername(username) {
+  async getUserInfoByUsernameServer(username) {
     return await findOne(
       User,
       {
@@ -36,7 +36,7 @@ class Users {
    * 通过token获取用户名
    * @param {String} token 用户的唯一认证字段
    */
-  async getUserInfoByToken(token) {
+  async getUserInfoByTokenServer(token) {
     return await findOne(
       User,
       {
