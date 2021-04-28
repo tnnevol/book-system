@@ -29,7 +29,10 @@ const resolve = (dir) => {
 // 多入口文件的处理
 function entryProcess(entryPath) {
   // /home/tnnevol/workspace/gits/koa2-learn/client/entry/front/index.js
-  const prefixPath = resolve(`${config.entry}/${entryPath}`);
+  const prefixPath = resolve(`${config.entry}/${entryPath}`).replace(
+    pathREG,
+    "/"
+  ); // fix path
   const filePathList = glob.sync(`${prefixPath}**/*.js`);
   const entry = {};
   filePathList.forEach((_path) => {
@@ -45,7 +48,10 @@ function entryProcess(entryPath) {
 
 // 多模板容器的处理 default views/
 function viewContainerProcess(viewsEntry) {
-  const prefixPath = resolve(`${config.serverEntry}/${viewsEntry}`); // 打包前views的完整路径
+  const prefixPath = resolve(`${config.serverEntry}/${viewsEntry}`).replace(
+    pathREG,
+    "/"
+  ); // 打包前views的完整路径 fix path
   const pathViews = glob.sync(`${prefixPath}**/*.ejs`); // 查询所有的ejs
   return pathViews.map((view) => {
     const ext = path.parse(view).ext;
