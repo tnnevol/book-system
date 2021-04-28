@@ -129,14 +129,16 @@ class BookController extends Controller {
       const { id } = ctx.query;
       const {
         data: resInfo,
+        type,
       } = await serviceBooks.getChapterContentByArticleDetailIdServer(id);
       const contentHtml = await super.getHtmlContentController(
         resInfo.url,
         "#content"
       );
       ctx.body = {
-        type: resInfo.type,
+        type,
         data: {
+          chapterIndex: resInfo.chapterIndex + 1,
           bookName: resInfo.bookName,
           title: resInfo.title,
           count: resInfo.count,

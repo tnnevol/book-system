@@ -76,19 +76,37 @@ class Books {
    * @returns {Promise<{data: String}>}
    */
   async getChapterContentByArticleDetailIdServer(articleDetailId) {
+    // 查询章节
     const chapterInfo = await findOne(
       ArticleDetail,
       { id: articleDetailId },
       { _id: 0, __v: 0 }
     );
-    const bookInfo = await findOne(
-      Article,
-      { id: chapterInfo.articleId },
-      { _id: 0, __v: 0 }
-    );
+    const [chapterAll, bookInfo] = await Promise.all([
+      // 查询该书的所有章节
+      ArticleDetail.find({
+        articleId: chapterInfo.articleId,
+      }).select("id -_id"),
+      // 通过书籍id查询书籍
+      findOne(Article, { id: chapterInfo.articleId }, { _id: 0, __v: 0 }),
+    ]);
+    // 查询该书的所有章节
+    // const chapterAll = await ArticleDetail.find({
+    //   articleId: chapterInfo.articleId,
+    // }).select("id -_id");
+
+    // 通过书籍id查询书籍
+    // const bookInfo = await findOne(
+    //   Article,
+    //   { id: chapterInfo.articleId },
+    //   { _id: 0, __v: 0 }
+    // );
     return {
       type: "success",
       data: {
+        chapterIndex: chapterAll.findIndex(
+          ({ id }) => id === Number(articleDetailId)
+        ),
         bookName: bookInfo.name,
         title: chapterInfo.name,
         url: bookInfo.url + chapterInfo.url,

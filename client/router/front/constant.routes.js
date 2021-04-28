@@ -13,4 +13,9 @@ export default [
       },
     ],
   },
+  {
+    path: "/reading/:articleDetailId",
+    name: "ReadingContent",
+    component: () => import("@/views/front/ReadingContent"),
+  },
 ];
