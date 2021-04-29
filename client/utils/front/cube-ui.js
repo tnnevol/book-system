@@ -48,6 +48,7 @@ import {
   ScrollNav,
   ScrollNavBar,
 } from "cube-ui";
+import "@//assets/front/theme/theme.scroll.less";
 
 Vue.use(Button);
 Vue.use(Loading);
